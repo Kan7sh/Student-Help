@@ -1,0 +1,416 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway:400,700');
+
+* {
+
+	font-family: 'Raleway', sans-serif;
+}
+
+body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background: #FBE8D3;
+    margin: 0px;
+
+}
+.heading{
+    display: flex;
+    width: 100%;
+    height: 72px;
+    background:#F85F73;
+    
+    }
+    .wtitle{
+        display: flex;
+        align-items: center;
+        width: 50%;
+        height: 100%;
+        color: #ffffff;
+        margin-left: 40px;
+        font-size: 28px;
+        font-weight: 600;
+        font-family: 'Raleway', sans-serif;
+    }
+    
+    .logbtn{
+        display: flex;
+        align-items: center;
+        justify-content: right;
+        width: 50%;
+        height: 100%;
+        margin-right: 50px;
+    }
+    a{
+        text-decoration: none;
+        color: #F85F73;
+        }
+        
+        a:visited{
+        text-decoration: none;
+        color: #F85F73;
+        }
+        .heading button{
+
+            display: inline-block;
+            outline: none;
+            cursor: pointer;
+            font-size: 15px;
+            line-height: 1;
+            border-radius: 500px;
+            transition-property: background-color,border-color,color,box-shadow,filter;
+            transition-duration: .3s;
+            border: 1px solid transparent;
+            letter-spacing: 2px;
+            width: 180px;
+            text-transform: uppercase;
+            white-space: normal;
+            font-weight: 600;
+            text-align: center;
+            padding: 17px 48px;
+            color: #fff;
+            background-color: #ffffff;
+            height: 48px;
+          
+          }
+          .heading button:hover{
+                transform: scale(1.04);
+                background-color: #ffffff;
+            }
+
+.title{
+    display: flex;
+    width: 100%;
+    height: 40px;
+    background:#283C63;
+                
+}
+
+.teachername{
+    display: flex;
+    align-items: center;
+    width: 50%;
+    height: 100%;
+    color: #ffffff;
+    margin-left: 40px;
+    font-size: 20px;
+    font-weight: 500;
+    font-family: 'Raleway', sans-serif;
+
+
+}
+
+.mainbox{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.featurebox{
+background: #ffffff;
+width: 29%;
+height: 565px;
+display: flex;
+flex-direction: column;
+align-items: center;
+box-shadow: 0px 0px 10px 1px  #000000;
+margin: 18px;
+margin-left: 50px;
+}
+
+.featureheading{
+margin-top: 10px;    
+width:92%;
+height: 35px;
+background: #283C63;
+color: #ffffff;
+font-size: 17px;
+font-family: 'Raleway', sans-serif;
+font-weight: 500;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+.cfeatures{
+width: 90%;
+height: 125px;
+margin: 12px;
+margin-top: 28px;
+}
+
+.imagg{
+width: 100%;
+height: 100%;
+border-radius: 14px;
+}
+
+.imagg:hover{
+
+    transform: scale(1.02);
+}
+
+.classbox{
+    background: #ffffff;
+    width: 57%;
+    height: 560px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0px 0px 10px 1px  #000000;
+    margin: 17px;
+    margin-left: 50px;
+    }
+
+.classheadingg{
+    margin-top: 10px;    
+    width:92%;
+    height: 35px;
+    background: #283C63;
+    color: #ffffff;
+    font-size: 17px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 0px 6px 1px  #706c74;
+
+
+}
+
+.spawnclass{
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  margin-top: 16px ;
+}
+
+.theclass1{
+    margin: 12px;
+    height: 120px;
+    width: 88%;
+    border-radius: 12px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    background-image: url("../images/class1.jpg");
+    }
+    .theclass2{
+        margin: 12px;
+        height: 120px;
+        width: 88%;
+        border-radius: 12px;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        display: flex;
+        flex-direction: column;
+        cursor: pointer;
+        background-image: url("../images/class2.jpg");
+        }
+
+        .theclass2:hover{
+            transform: scale(1.02);
+        }
+    .theclass1:hover{
+        transform: scale(1.02);
+    }
+        .classtitle{
+            height: 60%;
+            width: 100%;
+            display: flex;
+            }
+            
+            .classcode{
+            height: 40%;
+            width: 50%;
+            display: flex;
+            align-items: center;
+            font-size: 20px;
+            font-weight: 600;
+            margin-left: 36px;
+            margin-top: 15px;
+            color: #ffffff;
+            font-family: 'Raleway', sans-serif;
+            }
+            
+            .classname{
+                display: flex;
+                height: 100%;
+                width: 50%;
+                align-items: center;
+                font-size: 22px;
+                font-weight: 600;
+                margin-left: 32px;
+                font-family: 'Raleway', sans-serif;
+            }
+            
+            .classsubject{
+                display: flex;
+                height: 100%;
+                width: 50%;
+                align-items: center;
+                justify-content: right;
+                font-size: 22px;
+                font-weight: 600;
+                margin-right: 34px;
+                font-family: 'Raleway', sans-serif;
+            }
+
+            .group        { 
+                position:relative; 
+                margin-bottom:22px; 
+                margin-top: 28px;
+                margin-left: 75px;
+              }
+              input         {
+                font-size:15px;
+                padding:10px 10px 10px 5px;
+                display:block;
+                width:250px;
+                border:none;
+                border-bottom:1px solid #757575;
+              }
+              input:focus {
+                 outline:none; 
+                }
+              
+              label          {
+                color:#999; 
+                font-size:14px;
+                font-weight:normal;
+                position:absolute;
+                pointer-events:none;
+                left:5px;
+                top:10px;
+                transition:0.5s ease all; 
+                -moz-transition:0.5s ease all; 
+                -webkit-transition:0.5s ease all;
+              }
+              
+            
+              input:focus ~ label, input:valid ~ label    {
+                top:-20px;
+                font-size:12px;
+                color:#283C63;
+              }
+              
+             
+              .bar  { 
+                position:relative; display:block; width:265px; 
+            }
+              .bar:before, .bar:after   {
+                content:'';
+                height:2px; 
+                width:0;
+                bottom:0px; 
+                position:absolute;
+                background:#283C63; 
+                transition:0.5s ease all; 
+                -moz-transition:0.5s ease all; 
+                -webkit-transition:0.5s ease all;
+              }
+              .bar:before {
+                left:50%;
+              }
+              .bar:after {
+                right:50%; 
+              }
+              
+              input:focus ~ .bar:before, input:focus ~ .bar:after {
+                width:50%;
+              }
+              
+              .highlight {
+                position:absolute;
+                height:60%; 
+                width:100px; 
+                top:25%; 
+                left:0;
+                pointer-events:none;
+                opacity:0.5;
+              }
+              
+            
+              input:focus ~ .highlight {
+                -webkit-animation:inputHighlighter 0.5s ease;
+                -moz-animation:inputHighlighter 0.5s ease;
+                animation:inputHighlighter 0.5s ease;
+              }
+              
+              @-webkit-keyframes inputHighlighter {
+                from { background:#283C63; }
+                to  { width:0; background:transparent; }
+              }
+              @-moz-keyframes inputHighlighter {
+                from { background:#283C63; }
+                to  { width:0; background:transparent; }
+              }
+              @keyframes inputHighlighter {
+                from { background:#283C63; }
+                to  { width:0; background:transparent; }
+              }
+
+
+
+                  .joinclass button{
+
+                    display: inline-block;
+                    outline: none;
+                    cursor: pointer;
+                    font-size: 10px;
+                    line-height: 1;
+                    border-radius: 500px;
+                    transition-property: background-color,border-color,color,box-shadow,filter;
+                    transition-duration: .3s;
+                    border: 1px solid transparent;
+                    letter-spacing: 1px;
+                    width: 170px;
+                    text-transform: uppercase;
+                    white-space: normal;
+                    font-weight: 500;
+                    text-align: center;
+                    padding: 17px 48px;
+                    color: #fff;
+                    background-color: #283C63;
+                    height: 40px;
+                  margin-left: 110px;
+                  margin-bottom: 10px;
+                  }
+                  .joinclass button:hover{
+                        transform: scale(1.02);
+                        background-color: #283C63;
+                  }
+.error{
+
+  color: #F85F73;
+  font-weight: 500;
+margin-left: 165px;
+
+}   
+
+.teacher{
+  height: 40%;
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  font-size: 20px;
+  font-weight: 600;
+  margin-top: 15px;
+  margin-right: 30px;
+  color: #ffffff;
+  font-family: 'Raleway', sans-serif;
+
+}
+
+.lowerdiv{
+  height: 40%;
+  width: 100%;
+  display: flex;
+
+}

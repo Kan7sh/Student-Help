@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="css/login.css">
+   
+    <title>Log In</title>
+</head>
+<body>
+    <div class="box">
+        <div class="box1">
+            <form>
+            <h1>LOG IN</h1>
+            <div class="inputfields">
+            <div class="group">      
+                <input type="text"  name="username" id="username" autocomplete="off">
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>Username</label>
+              </div>
+              <div class="group">      
+                <input type="password"  name="password" id="password" >
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>Password</label>
+              </div>
+            </div>
+        
+            <span id="msg" class="errormsg"></span><br>
+            <div class="btndiv1">
+            <button  type="button" onclick="Userlogin()">Log In</button>
+        </div>
+            <br>
+            <div class="btndiv2">
+            <button type="submit" ><a href="signup.html">Sign Up</a></button> </div>
+            
+		</form>
+            
+        </div>
+        <div class="box2"><img src="images/main.jpg" alt="IMAGE" class="loginimg"></div>
+    </div>
+    <script >
+      var Userlogin = () => {
+        var username = document.getElementById("username").value;
+        var password = document.getElementById("password").value;
+
+        var formData = new FormData();
+
+        formData.append("username", username);
+        formData.append("password", password);
+
+        var http = new XMLHttpRequest();
+        http.onreadystatechange = function () {
+            
+            if (this.readyState == 4 && this.status == 200){
+            if(this.response=='teacher'){      
+                window.location.replace("teacherlog.html");
+                sessionStorage.setItem("USERN",username);
+            }
+            else if(this.response=='student'){
+                window.location.replace("studentlog.html");
+                sessionStorage.setItem("USERN",username);
+            }else{
+
+                document.getElementById("msg").innerHTML=this.response;
+
+             } };
+
+       }
+        http.open("POST", "/login-action", true);
+        http.send(formData);
+
+    }
+    </script>
+</body>
+</html>   

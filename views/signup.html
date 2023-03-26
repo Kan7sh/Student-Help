@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/signup.css">
+    
+    <title>Sign Up</title>
+</head>
+<body>
+            <div class="box">
+                <div class="box1"><img src="images/main.jpg" alt="IMAGE" class="signupimg"></div>
+                <div class="box2">
+              <form>
+                <h1 >SIGN UP</h1>
+                <div class="inputfields">
+                <div class="group">      
+                    <input type="text" name="name"  id="name" autocomplete="off" required>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Name</label>
+                  </div>
+                  <div class="group">      
+                    <input type="text" name="email" id ="email"autocomplete="off" required>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Email</label>
+                  </div><div class="group">      
+                    <input type="text" name="username" id="username"autocomplete="off" required> 
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Username</label>
+                  </div>
+                <select class="drpdwn" name="user" id="user" autocomplete="off" required>
+                    <option value="teacher">Teacher</option>
+                    <option value="student">Student</option>
+                </select>
+            </div>
+                <br><span id="error" class="errormsg"></span> <br>
+                <button class="btndiv" type="button" onclick="UserSignup()">Sign Up</button>
+                 
+              </form>
+                </div>
+            </div>
+        
+
+ 
+        <script  > 
+        var UserSignup = () => {
+        var name = document.getElementById("name").value;
+        var username = document.getElementById("username").value;
+        var email = document.getElementById("email").value;
+        var user = document.getElementById("user").value;
+
+        var formData = new FormData();
+        formData.append("name", name);
+        formData.append("email", email);
+        formData.append("username", username);
+        formData.append("user", user);
+
+
+
+        var http = new XMLHttpRequest();
+        http.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200){
+            if(this.response=='ok'){
+                document.getElementById("error").innerHTML="Password Sent to Your Email";
+                setTimeout(function(){
+                    window.location.replace("login.html");
+                },4000);
+               
+            }else{
+                document.getElementById("error").innerHTML=this.response;
+
+             } };
+
+       }
+        http.open("POST", "/signup-action", true);
+        http.send(formData);
+
+    }
+        </script>
+</body>
+</html>   

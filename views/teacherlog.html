@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Login</title>
+    <link rel="stylesheet" href="css/teacherlog.css">
+</head>
+<body onload="loadclass()">
+    <div class="heading">
+        <div class="wtitle">STUDENT HELP</div>
+        <div class="logbtn"><button><a href="login.html">Logout</a></button></div>
+       </div>
+            <div class="title"><span class="teachername" id="teachername"></span></div>
+        <div class="mainbox">
+<div class="featurebox">
+    <div class="featureheading">FEATURES</div>
+    <div class="cfeatures"><a href="createclass.html"><img src="images/createclass.jpg" alt="create class" class="imagg"></a></div>
+    <div class="cfeatures"><a href="todot.html"><img src="images/todo.jpg" alt="todo" class="imagg"></a></div>
+</div>
+<div class="classbox">
+<div class="classheadingg">MY CLASSES</div>
+<div id="spawnclasses" class="spawnclass"></div>
+</div>
+
+        </div>
+    <script>
+    function loadclass ()  {
+        var http = new XMLHttpRequest();
+        var formData = new FormData();
+        const username = sessionStorage.getItem('USERN');
+        formData.append("username", username);
+        var count = 3;
+        var class1 = "theclass1";
+        var class2 = "theclass2";
+        var tname = "Welcome,"
+        http.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200){
+        var response = JSON.parse(this.response);
+        response.forEach(function(value){
+            if((count%2)!=0){
+            document.querySelector('#spawnclasses').innerHTML 
+        +=`<div class="${class1}" onclick="myclass('${value.id}')" >
+         <div class="classtitle"  >
+            <div class="classname">${value.cname}</div>
+            <div class="classsubject">${value.subject}</div>
+         </div>
+         <div class="classcode">${value.code}</div>
+        </div>`;
+        
+        count=count+1; 
+    }else{
+        document.querySelector('#spawnclasses').innerHTML 
+        +=`<div class="${class2}" onclick="myclass('${value.id}')" >
+         <div class="classtitle"  >
+            <div class="classname">${value.cname}</div>
+            <div class="classsubject">${value.subject}</div>
+         </div>
+         <div class="classcode">${value.code}</div>
+        </div>`;
+        count=count+1;
+    }
+
+        })
+    }
+
+        }
+        http.open("POST", "/load-classes", true);
+        http.send(formData);
+
+        loadname();
+    }
+    function loadname(){
+        var http = new XMLHttpRequest();
+        var formData = new FormData();
+        const username = sessionStorage.getItem('USERN');
+        formData.append("username", username);
+        http.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200){
+        var response = JSON.parse(this.response);
+        response.forEach(function(value){
+            document.getElementById("teachername").innerHTML="Welcome,"+value.teacher;
+        });
+
+        }
+    
+    }
+        http.open("POST", "/load-tname", true);
+        http.send(formData);
+
+    }
+
+    function myclass(id){
+        sessionStorage.setItem("OPENCLASS",id);
+        window.location.replace("myclassteacher.html");
+    }
+    </script>
+</body>
+</html>

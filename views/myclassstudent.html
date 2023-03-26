@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="css/myclassstudent.css">
+</head>
+<body onload="loaddata()">
+   <div class="heading">
+    <div class="wtitle">STUDENT HELP</div>
+    <div class="backbtn"><button><a href="studentlog.html">Back</a></button></div>
+   </div>
+   <div class="classhead" id="titleid">
+   </div>
+   <div class="classwork">
+    <div class="classcontent">
+        <div class="contenthead">WORK</div>
+
+            <div class="spawncontent" id="spawncontent">
+            </div>
+
+
+    </div>
+    <div class="queries"><div class="queryhead">QUERIES</div>
+    <div class ="querybox">
+        <div class="spawnqueries" id="spawnqueries">
+        
+    </div>
+    </div>
+<div class="queryinput">
+    
+    <input type="text" placeholder="Any Queries?" id="askquery" class="askquery">
+    <button type="submit" class = "sendquery" onclick="sendquery()" >
+        <i class="fa-solid fa-reply"></i>
+      </button>
+</div>
+
+
+</div>
+    <div class="classstudent">
+        <div class="stuhead">STUDENTS</div>
+        <div id="spawnstudents" class="spawnstudent">
+        
+        </div>
+    </div>
+   </div>
+   <script>
+    function loaddata(){
+        var http = new XMLHttpRequest();
+        var formData = new FormData();
+        const classid = sessionStorage.getItem('OPENCLASS');
+        formData.append("id", classid);
+        http.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200){
+            
+            var response = JSON.parse(this.response);
+            response.forEach(function(value){
+            document.querySelector('#titleid').innerHTML =
+            `<div class="classtitle">${value.cname}</div>
+             <div class="classtitle">Subject:${value.subject}</div>
+             <div class="classtitle">Class Code:${value.code}</div>
+             <div class="classtitle">Teacher:${value.teacher}</div>`;}
+             )
+
+        }
+    
+    }
+        http.open("POST", "/load-data", true);
+        http.send(formData);
+
+        loadstudent()
+    }
+
+    function loadstudent(){
+        var http = new XMLHttpRequest();
+        var formData = new FormData();
+        const classid = sessionStorage.getItem('OPENCLASS');
+        formData.append("id", classid);
+        count = 1;
+        http.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200){
+
+            var response = JSON.parse(this.response);
+            response.forEach(function(value){
+            document.querySelector('#spawnstudents').innerHTML +=
+            ` <div class="thestudent">
+            <div class="studentno">${count}</div>
+            <div class="studentname">${value.name}</div>
+         </div>  `;
+            count = count+1;
+            }
+             )
+        }
+    
+    }
+        http.open("POST", "/load-stu", true);
+        http.send(formData);
+
+    loadcontent();
+    showqueries();
+    }
+
+    function loadcontent(){
+        var http = new XMLHttpRequest();
+        var formData = new FormData();
+        const classid = sessionStorage.getItem('OPENCLASS');
+        formData.append("id", classid);
+        http.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200){
+            var response = JSON.parse(this.response);
+            response.forEach(function(value){
+            if(value.work!="Notes"){    
+            document.querySelector('#spawncontent').innerHTML +=
+            `<div class="thecontent">
+            <div class="w">
+              <div class="wtopic">${value.topic}</div>
+              <div class="wwork">${value.work}</div>
+              <div class="wtime">${value.time}</div>
+            </div>
+            <div class="wf">
+              <div class="wfile">${value.file_name}</div>
+              <div class="dbtn">
+                <form method = "get" action="/stu-download">
+                    <input type = "hidden" name = "nothing" value = "${value.file_name}" />
+              <button type="submit" class = "download" >
+                <i class="fa-solid fa-download"></i></i>
+              </button>
+              </form>
+              </div>
+              </div>
+              <div id="${value.id}" class="wupload">
+              <div class="wffupload"> 
+                <span>Upload Work</span> 
+                <input type = "file" id="mystufile">
+                <button type= "button" onclick="stuupload('${value.id}','${value.topic}')"><i class="fa-solid fa-arrow-up-from-bracket"></i></button>
+                <span id='error2' class="error2"></span>
+            </div>
+
+
+            </div>
+            
+
+
+             </div> `;
+            }else{
+                document.querySelector('#spawncontent').innerHTML +=
+            `<div class="thecontent">
+            <div class="w">
+              <div class="wtopic" id="wtopic">${value.topic}</div>
+              <div class="wwork">${value.work}</div>
+            </div>
+            <div class="wff">
+              <div class="wfile">${value.file_name}</div>
+              <div class="dbtn">
+                <form method = "get" action="/stu-download">
+                    <input type = "hidden" name = "nothing" value = "${value.file_name}" />
+              <button type="submit" class = "download" >
+                <i class="fa-solid fa-download"></i>
+              </button>
+              </form>
+              </div>
+              </div>
+            
+
+
+             </div> `;
+
+            }
+        
+        })
+
+        }
+    
+    }
+        http.open("POST", "/load-content", true);
+        http.send(formData);
+
+        loadworksubmit();
+    }
+
+    function download(fname){
+        var http = new XMLHttpRequest();
+        var formData = new FormData();
+        formData.append("fname", fname);
+        http.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200){
+
+            window.location = __dirname + "/upload/" + fname;
+        }
+    }
+        http.open("POST", "/stu-download", true);
+        http.send(formData);
+
+
+    }
+
+    function stuupload(wid,topic){
+        var http = new XMLHttpRequest();
+        var formData = new FormData();
+        var classid = sessionStorage.getItem('OPENCLASS');
+        var username = sessionStorage.getItem('USERN');
+        var myfile = document.getElementById("mystufile").files[0];
+        formData.append("myfile",myfile);
+        formData.append("wid",wid);
+        formData.append("cid", classid);
+        formData.append("username", username);
+        formData.append("topic", topic);
+        http.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200){
+            if(this.response =="done"){
+                alert("Work Uploaded");
+            }else{
+                    document.getElementById("error2").innerHTML=this.response;
+                }
+
+        }
+    
+    }
+        http.open("POST", "/stu-upload", true);
+        http.send(formData);
+
+
+        loadworksubmit()
+
+    }
+
+    function loadworksubmit(){
+        var http = new XMLHttpRequest();
+        var formData = new FormData();
+        var classid = sessionStorage.getItem('OPENCLASS');
+        var username = sessionStorage.getItem('USERN');
+        formData.append("cid", classid);
+        formData.append("username", username);
+        http.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200){
+            var response = JSON.parse(this.response);
+            response.forEach(function(value){
+            document.getElementById(value.wid).innerHTML=
+                `<div class="wfupload"> 
+                <span>Work Submited</span>     </div>`
+           
+            });
+
+
+        }
+    
+    }
+        http.open("POST", "/work-submit", true);
+        http.send(formData);
+
+
+
+    }
+
+    function sendquery(){
+
+        var http = new XMLHttpRequest();
+        var formData = new FormData();
+        var classid = sessionStorage.getItem('OPENCLASS');
+        var username = sessionStorage.getItem('USERN');
+        var query = document.getElementById("askquery").value;
+        formData.append("cid", classid);
+        formData.append("username", username);
+        formData.append("query", query);
+        http.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200){
+            if(this.response =="done"){
+                document.getElementById("askquery").innerHTML="";
+                document.getElementById("spawnqueries").innerHTML= '' ; 
+                showqueries();
+            }
+
+
+        }
+    
+    }
+        http.open("POST", "/ask-query", true);
+        http.send(formData);
+
+    }
+
+    function showqueries(){
+        var http = new XMLHttpRequest();
+        var formData = new FormData();
+        var classid = sessionStorage.getItem('OPENCLASS');
+        var username = sessionStorage.getItem('USERN');
+        formData.append("cid", classid);
+        formData.append("username", username);
+        http.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200){
+            var response = JSON.parse(this.response);
+            response.forEach(function(value){
+            var rid="r"+value.qid;
+            document.getElementById("spawnqueries").innerHTML+=
+           ` <div class="thequery" id="thequery"><div class="thequery1">
+            ${value.query}</div>
+            </div>
+            <div class="queryreply" id="${rid}"></div>
+            `
+            });
+
+
+        }
+    
+    }
+
+        http.open("POST", "/show-query", true);
+        http.send(formData);
+
+        showrepliedqueries();
+    }
+
+    function showrepliedqueries(){
+        var http = new XMLHttpRequest();
+        var formData = new FormData();
+        http.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200){
+            var response = JSON.parse(this.response);
+            response.forEach(function(value){
+                var rid = "r"+value.qid;
+                document.getElementById(rid).innerHTML=`
+                <i class="fa-solid fa-arrow-right"></i>
+                <div class="qreply1">${value.reply}</div>
+                `
+            });
+
+
+        }
+    
+    }
+       http.open("POST", "/replied-query", true);
+       http.send(formData);
+
+
+
+    }
+   </script> 
+</body>
+</html>

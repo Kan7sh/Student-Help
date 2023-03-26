@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Login</title>
+    <link rel="stylesheet" href="css/studentlog.css">
+</head>
+<body onload="loadclass()">
+    <div class="heading">
+        <div class="wtitle">STUDENT HELP</div>
+        <div class="logbtn"><button><a href="login.html">Logout</a></button></div>
+       </div>
+            <div class="title"><span class="teachername" id="teachername"></span></div>
+        <div class="mainbox">
+<div class="featurebox">
+    <div class="featureheading">FEATURES</div>
+    <div class="cfeatures">           
+         <div class="joinclass">
+
+            <div class="group">      
+                <input type="text" id="joincode">
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>Join Code</label>
+              </div>
+       
+        <button onclick="joincls()">Join class</button>
+       <br> <span id="error" class="error"></span>
+    </div></div>
+    <div class="cfeatures"><a href="todos.html"><img src="images/todo.jpg" alt="todo" class="imagg"></a></div>
+</div>
+<div class="classbox">
+<div class="classheadingg">MY CLASSES</div>
+<div id="spawnclasses" class="spawnclass">
+</div>
+
+        </div>
+        <script>
+            function joincls(){
+            var http = new XMLHttpRequest();
+            var formData = new FormData();
+            var code = document.getElementById("joincode").value;
+            const username = sessionStorage.getItem('USERN');
+            formData.append("code", code);
+            formData.append("username", username);
+            http.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200){
+            if(this.response=="Class Joined"){
+                alert("Class Joined");
+                document.querySelector("#spawnclasses").innerHTML='';
+                loadclass()
+                
+            }else{
+                document.getElementById("error").innerHTML=this.response;
+                document.getElementById("joincode").value='';
+            }
+            }
+        
+        }
+            http.open("POST", "/join-class", true);
+            http.send(formData);
+            }
+    
+    
+    
+        function loadclass ()  {
+            var http = new XMLHttpRequest();
+            var formData = new FormData();
+            const username = sessionStorage.getItem('USERN');
+            
+            formData.append("username", username);
+            var count = 3;
+            var class1 = "theclass1";
+            var class2 = "theclass2";
+            http.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200){
+            var response = JSON.parse(this.response);
+            response.forEach(function(value){
+                if((count%2)!=0){
+                document.querySelector('#spawnclasses').innerHTML 
+            +=`<div class="${class1}" onclick="myclass('${value.id}')" >
+             <div class="classtitle"  >
+                <div class="classname">${value.cname}</div>
+                <div class="classsubject">${value.subject}</div>
+                
+             </div>
+             <div class="lowerdiv">
+             <div class="classcode">${value.code}</div><div class="teacher">${value.teacher}</div>
+            </div>
+            </div>`;
+            count=count+1;
+        }else{
+            document.querySelector('#spawnclasses').innerHTML 
+            +=`<div class="${class2}" onclick="myclass('${value.id}')" >
+             <div class="classtitle"  >
+                <div class="classname">${value.cname}</div>
+                <div class="classsubject">${value.subject}</div>
+                
+             </div>
+             <div class="lowerdiv">
+             <div class="classcode">${value.code}</div><div class="teacher">${value.teacher}</div>
+            </div>
+            </div>`;
+            count=count+1;
+        }
+    
+            })
+        }
+    
+            }
+            http.open("POST", "/load-classes-stu", true);
+            http.send(formData);
+
+            loadname();
+        }
+    
+        function myclass(id){
+            sessionStorage.setItem("OPENCLASS",id);
+            window.location.replace("myclassstudent.html");
+        }
+
+        function loadname(){
+        var http = new XMLHttpRequest();
+        var formData = new FormData();
+        const username = sessionStorage.getItem('USERN');
+        formData.append("username", username);
+        http.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200){
+        var response = JSON.parse(this.response);
+        response.forEach(function(value){
+            document.getElementById("teachername").innerHTML="Welcome,"+value.name;
+        });
+
+        }
+    
+    }
+        http.open("POST", "/load-sname", true);
+        http.send(formData);
+
+    }
+        </script>
+</body>
+</html>

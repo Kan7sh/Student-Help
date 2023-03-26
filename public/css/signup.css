@@ -1,0 +1,201 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway:400,700');
+
+* {
+
+	font-family: 'Raleway', sans-serif;
+}
+
+body {
+  background-color:#FBE8D3;
+  font-family: 'Raleway', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.box{  
+  margin-top: 18px;    
+  height: 660px;
+  width: 1100px;
+  background:#ffffff;
+  box-shadow: 0px 0px 20px 1px  #000000;
+  display: flex;
+  align-items: center;
+  border-radius: 10px ;
+  }
+  .box1{
+    width: 50%;
+    height: 100%;
+    background: #F85F73;
+    border-radius: 10px 0px 0px 10px;
+    }
+    .signupimg{
+    width: 550.6px;
+    height: 660px;
+    border-radius:  10px 0px 0px 10px;
+    }
+
+.box2{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    }
+h1{
+  color: #F85F73;
+  margin-left: 210px;
+  margin-top: 46px;
+  font-size: 36px;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 700;
+    
+    }   
+    
+    .group        { 
+      position:relative; 
+      margin-bottom:24px; 
+    }
+    input         {
+      font-size:15px;
+      padding:10px 10px 10px 5px;
+      display:block;
+      width:250px;
+      border:none;
+      border-bottom:1px solid #757575;
+    }
+    input:focus {
+       outline:none; 
+      }
+    
+    label          {
+      color:#999; 
+      font-size:14px;
+      font-weight:normal;
+      position:absolute;
+      pointer-events:none;
+      left:5px;
+      top:10px;
+      transition:0.5s ease all; 
+      -moz-transition:0.5s ease all; 
+      -webkit-transition:0.5s ease all;
+    }
+    
+  
+    input:focus ~ label, input:valid ~ label    {
+      top:-20px;
+      font-size:12px;
+      color:#283C63;
+    }
+    
+   
+    .bar  { 
+      position:relative; display:block; width:265px; 
+  }
+    .bar:before, .bar:after   {
+      content:'';
+      height:2px; 
+      width:0;
+      bottom:0px; 
+      position:absolute;
+      background:#283C63; 
+      transition:0.5s ease all; 
+      -moz-transition:0.5s ease all; 
+      -webkit-transition:0.5s ease all;
+    }
+    .bar:before {
+      left:50%;
+    }
+    .bar:after {
+      right:50%; 
+    }
+    
+    input:focus ~ .bar:before, input:focus ~ .bar:after {
+      width:50%;
+    }
+    
+    .highlight {
+      position:absolute;
+      height:60%; 
+      width:100px; 
+      top:25%; 
+      left:0;
+      pointer-events:none;
+      opacity:0.5;
+    }
+    
+  
+    input:focus ~ .highlight {
+      -webkit-animation:inputHighlighter 0.5s ease;
+      -moz-animation:inputHighlighter 0.5s ease;
+      animation:inputHighlighter 0.5s ease;
+    }
+    
+    @-webkit-keyframes inputHighlighter {
+      from { background:#283C63; }
+      to  { width:0; background:transparent; }
+    }
+    @-moz-keyframes inputHighlighter {
+      from { background:#283C63; }
+      to  { width:0; background:transparent; }
+    }
+    @keyframes inputHighlighter {
+      from { background:#283C63; }
+      to  { width:0; background:transparent; }
+    }
+  
+    .inputfields{
+  
+  margin-top: 72px;  
+  margin-left: 150px;  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+  
+    }
+
+    .drpdwn{
+width:260px;
+border: none;
+color: #283C63;
+
+    }
+    .box2 button{
+
+      display: inline-block;
+      outline: none;
+      cursor: pointer;
+      font-size: 15px;
+      line-height: 1;
+      border-radius: 500px;
+      transition-property: background-color,border-color,color,box-shadow,filter;
+      transition-duration: .3s;
+      border: 1px solid transparent;
+      letter-spacing: 2px;
+      width: 180px;
+      text-transform: uppercase;
+      white-space: normal;
+      font-weight: 600;
+      text-align: center;
+      padding: 17px 48px;
+      color: #fff;
+      background-color: #F85F73;
+      height: 48px;
+    
+    }
+    .box2 button:hover{
+          transform: scale(1.04);
+          background-color: #F85F73;
+      }
+    .errormsg{
+      color: #F85F73;
+      font-weight: 500;
+    margin-left: 155px;
+    margin-top: 12px;   
+    }
+    .btndiv{
+      margin-left: 190px;
+      margin-top: 22px;
+      
+      
+      }
+    

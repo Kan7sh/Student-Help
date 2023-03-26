@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do List</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="css/todos.css">
+</head>
+<body onload="getdata()">
+    <div class="heading">
+        <div class="wtitle">STUDENT HELP</div>
+        <div class="backbtn"><button><a href="studentlog.html">BACK</a></button></div>
+       </div>
+
+
+    <div class="container">
+        <div id="newtask" class="newtask">
+            <div class="group">      
+                <input type="text" >
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>Add Task</label>
+              </div>
+            <button id="push" onclick="AddTask()">ADD</button>
+        </div>
+        <div id="tasks">
+
+        </div>
+        
+    </div>
+    <script >
+
+        function getdata ()  {
+        var http = new XMLHttpRequest();
+        var formData = new FormData();
+        const username = sessionStorage.getItem('USERN');
+
+        formData.append("username", username);
+        http.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200){
+        var response = JSON.parse(this.response);
+        response.forEach(function(value){
+
+            document.querySelector('#tasks').innerHTML 
+        +=`
+        <div class = "task">
+        <span  id="taskname">
+            ${value.task}
+        </span>
+        <button class = "delete" onclick="deletetask('${value.id}')">
+            <i class="fa-regular fa-trash-can"></i>
+        </button>
+        </div>
+        `;
+    })}  
+    }
+        http.open("POST", "/todo-action", true);
+        http.send(formData);
+
+    }
+
+    function AddTask(){
+        var http = new XMLHttpRequest();
+        var formData = new FormData();
+        const username = sessionStorage.getItem('USERN');
+
+        formData.append("username", username);
+        if(document.querySelector('#newtask input').value.length == 0){
+        alert("Please Enter a Task")
+        }else{
+        var task =    document.querySelector('#newtask input').value;
+        formData.append("task", task);
+        document.querySelector("#newtask input").value='';
+        http.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200){
+           if(this.response=="ok"){
+         
+            document.querySelector("#tasks").innerHTML='';
+            getdata();
+           }
+        }
+        }
+    
+    }
+        http.open("POST", "/addtask", true);
+        http.send(formData);
+    }
+
+    function deletetask(id){
+        var http = new XMLHttpRequest();
+        var formData = new FormData();
+        formData.append("id", id);
+        http.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200){
+           if(this.response=="ok"){
+            document.querySelector("#tasks").innerHTML='';
+            getdata();
+           }
+        }
+        }
+        http.open("POST", "/deletetask", true);
+        http.send(formData);
+        
+    }
+
+
+
+    </script>
+</body>
+</html>

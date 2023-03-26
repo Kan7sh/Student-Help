@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Class</title>
+    <link rel="stylesheet" href="css/createclass.css">
+</head>
+<body>
+    <div class="heading">
+        <div class="wtitle">STUDENT HELP</div>
+        <div class="backbtn"><button><a href="teacherlog.html">BACK</a></button></div>
+       </div>
+<div class="mainbox">
+        <div class="cheading">CREATE CLASS</div>
+        <div class="inputbox">
+            <div class="inputfields">
+                <div class="group">      
+                    <input type="text" name="cname"   id="cname" autocomplete="off" required>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Class Name</label>
+                  </div>
+                  <div class="group">      
+                    <input  type="text" name="classsub"  id="classsub" autocomplete="off" required> 
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Subject</label>
+                  </div>      
+                  <div class="group">      
+                    <input  type="text" name="classcode"   id="classcode" autocomplete="off" required>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Class Code</label>
+                  </div> 
+    </div>
+    <span id="error" class="error"></span>
+        <button class="cbtn" type="button" onclick="classsignup()">Create</button>
+
+    </div>
+</div>
+    <script>
+        function classsignup(){
+            var http = new XMLHttpRequest();
+            var formData = new FormData();
+            const username = sessionStorage.getItem('USERN');
+            var cname = document.getElementById("cname").value;
+            var subject = document.getElementById("classsub").value;
+            var classcode = document.getElementById("classcode").value;
+            formData.append("cname", cname);
+            formData.append("subject", subject);
+            formData.append("username", username);
+            formData.append("classcode", classcode);
+
+            var http = new XMLHttpRequest();
+        http.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200){
+                if(this.response=='ok'){
+                    alert("Class Created");
+                    window.location.replace("teacherlog.html");
+                }else{
+                    document.getElementById("error").innerHTML=this.response;
+                }
+
+            }
+        
+        }
+        http.open("POST", "/class-signup", true);
+        http.send(formData);
+        } 
+    </script>
+</body>
+</html>
